@@ -96,7 +96,14 @@
       return this.transport.get(url, this.remote.ajax, handleRemoteResponse);
 
       function handleRemoteResponse(err, resp) {
-        err ? cb([]) : cb(that.remote.filter ? that.remote.filter(resp) : resp);
+        var data = [];
+        if (!err) {
+          data = that.remote.filter ? that.remote.filter(resp) : resp;
+        }
+
+        that.add(data);
+        that._saveToStorage(that.index.serialize(), that.remote.thumbprint, that.remote.ttl);
+        cb(data);
       }
     },
 
