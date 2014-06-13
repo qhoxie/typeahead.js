@@ -101,6 +101,12 @@
           data = that.remote.filter ? that.remote.filter(resp) : resp;
         }
 
+        data = _.filter(data, function(remoteMatch) {
+            return !_.some(that.index.datums, function(localMatch) {
+                return that.dupDetector(remoteMatch, localMatch);
+            });
+        });
+
         that.add(data);
         that._saveToStorage(that.index.serialize(), that.remote.thumbprint, that.remote.ttl);
         cb(data);
