@@ -508,6 +508,8 @@
             var remote, defaults;
             defaults = {
                 url: null,
+                thumbprint: "",
+                ttl: 24 * 60 * 60 * 1e3,
                 wildcard: "%QUERY",
                 replace: null,
                 rateLimitBy: "debounce",
@@ -522,6 +524,7 @@
                 } : remote;
                 remote = _.mixin(defaults, remote);
                 remote.rateLimiter = /^throttle$/i.test(remote.rateLimitBy) ? byThrottle(remote.rateLimitWait) : byDebounce(remote.rateLimitWait);
+                remote.thumbprint = VERSION + prefetch.thumbprint;
                 remote.ajax.type = remote.ajax.type || "GET";
                 remote.ajax.dataType = remote.ajax.dataType || "json";
                 delete remote.rateLimitBy;

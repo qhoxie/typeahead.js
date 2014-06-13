@@ -48,6 +48,8 @@ var oParser = (function() {
 
     defaults = {
       url: null,
+      thumbprint: '',
+      ttl: 24 * 60 * 60 * 1000, // 1 day
       wildcard: '%QUERY',
       replace: null,
       rateLimitBy: 'debounce',
@@ -64,6 +66,8 @@ var oParser = (function() {
       remote = _.mixin(defaults, remote);
       remote.rateLimiter = /^throttle$/i.test(remote.rateLimitBy) ?
         byThrottle(remote.rateLimitWait) : byDebounce(remote.rateLimitWait);
+
+      remote.thumbprint = VERSION + prefetch.thumbprint;
 
       remote.ajax.type = remote.ajax.type || 'GET';
       remote.ajax.dataType = remote.ajax.dataType || 'json';
