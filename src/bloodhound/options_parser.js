@@ -67,7 +67,7 @@ var oParser = (function() {
       remote.rateLimiter = /^throttle$/i.test(remote.rateLimitBy) ?
         byThrottle(remote.rateLimitWait) : byDebounce(remote.rateLimitWait);
 
-      remote.thumbprint = VERSION + prefetch.thumbprint;
+      remote.thumbprint = VERSION + remote.thumbprint;
 
       remote.ajax.type = remote.ajax.type || 'GET';
       remote.ajax.dataType = remote.ajax.dataType || 'json';
